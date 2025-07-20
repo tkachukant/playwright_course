@@ -12,7 +12,7 @@ test("Search valid SKUs", async ({ page }) => {
   await mainpage.goto();
   await header.openSearch();
   await search.searchSKU(validSKU);
-
+  
 
 });
 

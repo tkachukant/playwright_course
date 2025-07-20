@@ -1,5 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
- 
+
 export class Header {
   readonly page: Page;
   readonly logoLink: Locator;
@@ -8,7 +8,7 @@ export class Header {
   readonly accountLink: Locator;
   readonly searchLink: Locator;
   readonly cartLink: Locator;
- 
+
   constructor(page: Page) {
     this.page = page;
     this.logoLink = page.locator("a.Header__LogoLink");
@@ -18,30 +18,39 @@ export class Header {
     this.searchLink = page.locator('a[href="/search"].Heading');
     this.cartLink = page.locator('a.Heading[data-drawer-id="sidebar-cart"]');
   }
-  async verifyLogoLinkisVisible(){
-    await expect(this.logoLink).toBeVisible()
+  async verifyLogoLinkisVisible() {
+    await expect(this.logoLink).toBeVisible();
   }
- 
-  async validateHeaderLogo() {// разделить на отдельные методы
+
+  async validateHeaderLogo() {
+    // разделить на отдельные методы
     await expect(this.logoLink).toHaveAttribute("href", "/");
-    await expect(this.logoPrimary).toHaveAttribute("alt", "The Connected Shop Logo");
+    await expect(this.logoPrimary).toHaveAttribute(
+      "alt",
+      "The Connected Shop Logo"
+    );
     await expect(this.logoPrimary).toHaveAttribute("loading", "lazy");
-    await expect(this.logoWhite).toHaveAttribute("alt", "The Connected Shop Logo White");
+    await expect(this.logoWhite).toHaveAttribute(
+      "alt",
+      "The Connected Shop Logo White"
+    );
     await expect(this.cartLink).toHaveAttribute("aria-label", "Open cart");
   }
 
-  async verifySearchLink(){
+  async verifySearchLink() {
     await expect(this.searchLink).toBeVisible();
     await expect(this.searchLink).toHaveAttribute("href", "/search");
-    await expect(this.searchLink).toHaveAttribute("data-action", "toggle-search");
+    await expect(this.searchLink).toHaveAttribute(
+      "data-action",
+      "toggle-search"
+    );
   }
- 
+
   async openSearch() {
     await this.searchLink.click();
   }
-  async verifyAccountLink(){
-    expect (this.accountLink).toBeVisible()
+  async verifyAccountLink() {
+    expect(this.accountLink).toBeVisible();
     await expect(this.accountLink).toHaveAttribute("href", "/account");
-
   }
 }
