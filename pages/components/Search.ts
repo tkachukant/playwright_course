@@ -2,28 +2,28 @@ import { Locator, Page, expect } from "@playwright/test";
 
 export class Search {
   readonly page: Page;
-  readonly input: Locator;
+  readonly searchInput: Locator;
   readonly resultItem: Locator;
   readonly resultText: Locator;
   readonly resultTitle: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.input = page.locator('[name="q"]');
+    this.searchInput = page.locator('[name="q"]');
     this.resultItem = page.locator(".Search__Results .ProductItem");
     this.resultText = page.locator(".Segment__Title .Heading.Text--subdued");
     this.resultTitle = page.locator(".ProductItem__Title.Heading");
   }
 
   async searchSKU(sku: string) {
-    await expect(this.input).toBeVisible();
-    await this.input.fill(sku);
-    await expect(this.input).toHaveValue(sku);
+    await expect(this.searchInput).toBeVisible();
+    await this.searchInput.fill(sku);
+    await expect(this.searchInput).toHaveValue(sku);
   }
 
   async searchByText(text: string) {
-    await this.input.clear();
-    await this.input.fill(text);
+    await this.searchInput.clear();
+    await this.searchInput.fill(text);
     await expect(this.resultText.first()).toBeVisible();
   }
 
@@ -42,7 +42,7 @@ export class Search {
   }
 
   async verifySearchResult() {
-    const value = await this.input.inputValue();
+    const value = await this.searchInput.inputValue();
     await expect(this.resultTitle.first()).toContainText(value);
   }
 
